@@ -2,7 +2,7 @@ import './globals.css';
 import Sidebar from '../components/Sidebar';
 
 export const metadata = {
-    title: 'Repargo Admin Dashboard',
+    title: 'Repairgo Admin Dashboard',
     description: 'Manage bookings, technicians, users, and analytics.',
 };
 

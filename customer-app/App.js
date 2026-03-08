@@ -3,7 +3,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, ActivityIndicator } from 'react-native';
 
-import { HomeScreen, LiveTrackingScreen, PaymentScreen } from './src/screens';
+import LoginScreen from './src/screens/LoginScreen';
+
+// const { HomeScreen, LiveTrackingScreen, PaymentScreen } = require('./src/screens');
 
 const Stack = createStackNavigator();
 
@@ -30,9 +32,9 @@ const PlaceholderScreen = ({ name }) => {
 export default function App() {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="SplashScreen">
+            <Stack.Navigator initialRouteName="LoginScreen" screenOptions={{ headerShown: false }}>
                 <Stack.Screen name="SplashScreen" component={() => <PlaceholderScreen name="SplashScreen" />} />
-                <Stack.Screen name="LoginScreen" component={() => <PlaceholderScreen name="LoginScreen" />} />
+                <Stack.Screen name="LoginScreen" component={LoginScreen} />
                 <Stack.Screen name="HomeScreen" component={() => <PlaceholderScreen name="HomeScreen" />} />
                 <Stack.Screen name="ServiceSelectionScreen" component={() => <PlaceholderScreen name="ServiceSelectionScreen" />} />
                 <Stack.Screen name="DeviceSelectionScreen" component={() => <PlaceholderScreen name="DeviceSelectionScreen" />} />

@@ -3,6 +3,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { View, Text, ActivityIndicator } from 'react-native';
 
+import LoginScreen from './src/screens/LoginScreen';
+
 const Stack = createStackNavigator();
 
 const PlaceholderScreen = ({ name }) => {
@@ -24,8 +26,8 @@ const PlaceholderScreen = ({ name }) => {
 export default function App() {
     return (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName="TechnicianLoginScreen">
-                <Stack.Screen name="TechnicianLoginScreen" component={() => <PlaceholderScreen name="Technician Login" />} />
+            <Stack.Navigator initialRouteName="TechnicianLoginScreen" screenOptions={{ headerShown: false }}>
+                <Stack.Screen name="TechnicianLoginScreen" component={LoginScreen} />
                 <Stack.Screen name="TechnicianDashboard" component={() => <PlaceholderScreen name="Technician Dashboard (Accept Jobs, Location Update)" />} />
                 <Stack.Screen name="IncomingJobRequestScreen" component={() => <PlaceholderScreen name="Incoming Job Request" />} />
                 <Stack.Screen name="JobDetailsScreen" component={() => <PlaceholderScreen name="Job Details" />} />

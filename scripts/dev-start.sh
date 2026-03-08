@@ -36,9 +36,19 @@ cd ../admin-dashboard
 npm run dev &
 ADMIN_PID=$!
 
+# 5. Start Mobile Apps in Web Mode
+echo "5️⃣ Booting Mobile Applications natively on Web Ports..."
+cd ../customer-app
+npx expo start --web --port 8081 &
+CUSTOMER_PID=$!
+
+cd ../technician-app
+npx expo start --web --port 8082 &
+TECHNICIAN_PID=$!
+
 function cleanup() {
     echo "🛑 Shutting down environment..."
-    kill $WORKER_PID $SERVER_PID $ADMIN_PID
+    kill $WORKER_PID $SERVER_PID $ADMIN_PID $CUSTOMER_PID $TECHNICIAN_PID
     cd "$DIR/../deployment" && docker compose stop
     exit
 }
@@ -47,8 +57,10 @@ trap cleanup SIGINT SIGTERM
 
 echo "--------------------------------------------------------"
 echo "✅ Framework Online!"
-echo "Backend/WebSockets : http://localhost:5000"
+echo "Backend/WebSockets : http://localhost:5001"
 echo "Admin Dashboard    : http://localhost:3000"
+echo "Customer App       : http://localhost:8081"
+echo "Technician App     : http://localhost:8082"
 echo "Press Ctrl+C to terminate all execution instances."
 echo "--------------------------------------------------------"
 

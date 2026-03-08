@@ -25,7 +25,7 @@ export default function Sidebar() {
     return (
         <aside className="w-64 bg-white border-r border-gray-200 flex flex-col h-full shadow-sm">
             <div className="p-6 border-b border-gray-200">
-                <h1 className="text-2xl font-bold text-primary tracking-tight">Repargo<span className="text-secondary text-sm ml-1">Admin</span></h1>
+                <h1 className="text-2xl font-bold text-primary tracking-tight">Repairgo<span className="text-secondary text-sm ml-1">Admin</span></h1>
             </div>
 
             <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
@@ -51,7 +51,7 @@ export default function Sidebar() {
                     </div>
                     <div>
                         <p className="font-medium text-gray-900">Admin User</p>
-                        <p className="text-gray-500">admin@repargo.com</p>
+                        <p className="text-gray-500">admin@repairgo.com</p>
                     </div>
                 </div>
             </div>
