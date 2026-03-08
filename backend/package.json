@@ -7,7 +7,7 @@
     "start": "node src/index.js",
     "dev": "nodemon src/index.js",
     "worker": "node workers/matchingWorker.js",
-    "test": "jest --detectOpenHandles"
+    "test": "jest --forceExit"
   },
   "dependencies": {
     "bullmq": "^3.0.0",

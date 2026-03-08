@@ -1,5 +1,9 @@
 #!/bin/bash
 # Repargo Dev Environment Terminator
+export PATH="/usr/local/bin:$PATH"
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd "$DIR/.."
 
 echo "🛑 Shutting down Repargo Environment..."
 
@@ -11,7 +15,7 @@ pkill -f "next dev"
 
 # 2. Stop Docker Background Instances Safely
 echo "Stopping Docker DB Containers..."
-cd ../deployment
-docker-compose stop
+cd deployment
+docker compose stop
 
 echo "✅ Environment successfully terminated."

@@ -60,6 +60,13 @@ beforeAll(async () => {
 afterAll(async () => {
     await mongoose.disconnect();
     await mongoServer.stop();
+    const io = app.get('io');
+    if (io && io.close) {
+        io.close();
+    }
+    if (server) {
+        server.close();
+    }
 });
 
 describe('Module 11 - Full Workflow E2E', () => {
