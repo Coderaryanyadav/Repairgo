@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - repargo-network
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - repargo-network
+
+  backend-api:
+    build: ../backend
+    ports:
+      - "5000:5000"
+    environment:
+      - PORT=5000
+      - MONGODB_URI=mongodb://mongodb:27017/repargo
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - JWT_SECRET=production_secret_key
+    depends_on:
+      - mongodb
+      - redis
+    networks:
+      - repargo-network
+
+  matching-worker:
+    build: ../backend
+    command: npm run worker
+    environment:
+      - MONGODB_URI=mongodb://mongodb:27017/repargo
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - mongodb
+      - redis
+    networks:
+      - repargo-network
+
+volumes:
+  mongo-data:
+
+
+networks:
+  repargo-network:
+    driver: bridge

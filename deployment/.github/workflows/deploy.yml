@@ -1,0 +1,28 @@
+name: Deploy Repargo Backend
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'backend/**'
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install Dependencies
+        working-directory: ./backend
+        run: npm ci
+
+      # Deploy commands would be placed here (e.g., to AWS ECS, Vercel, or Render)
+      - name: Example Deployment Script
+        run: echo "Deploying to production server using PM2/Docker!"

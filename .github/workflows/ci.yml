@@ -1,0 +1,68 @@
+name: Repargo CI Workflow
+
+on:
+  push:
+    branches: [ "main", "staging" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  backend-verification:
+    runs-on: ubuntu-latest
+    
+    # Needs a mock setup to run the jest framework gracefully
+    services:
+      redis:
+        image: redis:alpine
+        ports:
+          - 6379:6379
+          
+    steps:
+    - name: Checkout Code Repository
+      uses: actions/checkout@v3
+
+    - name: Use Node.js 18.x
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18.x'
+        cache: 'npm'
+        cache-dependency-path: repargo/backend/package-lock.json
+
+    - name: Install Dependencies
+      run: |
+        cd repargo/backend
+        npm ci
+
+    - name: Run Jest E2E Integrations
+      run: |
+        cd repargo/backend
+        npm test
+      env:
+        NODE_ENV: test
+        REDIS_HOST: localhost
+
+    - name: Build Docker Image (Staging Check)
+      run: |
+        cd repargo
+        docker build -t repargo-api-staging -f backend/Dockerfile .
+
+  frontend-linting:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18.x'
+
+    - name: Install Admin Dependencies
+      run: |
+        cd repargo/admin-dashboard
+        npm install
+
+    - name: Lint Next.js Admin App
+      run: |
+        cd repargo/admin-dashboard
+        npm run lint --if-present
+
+    # Add Expo/React Native lints as required here
